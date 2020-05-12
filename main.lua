@@ -365,11 +365,29 @@ function fromfile(fname)
 
    local x
    if type == 'float32' then
-      x = torch.FloatTensor(torch.FloatStorage(fname))
+      -- x = torch.FloatTensor(torch.FloatStorage(fname))
+      s=1
+      for i = 1,#dim do
+         s = s * dim[i]
+      end
+      x = torch.FloatTensor(torch.FloatStorage(s))
+      torch.DiskFile(fname,'r'):binary():readFloat(x:storage())
    elseif type == 'int32' then
-      x = torch.IntTensor(torch.IntStorage(fname))
+      -- x = torch.IntTensor(torch.IntStorage(fname))
+      s=1
+      for i = 1,#dim do
+         s = s * dim[i]
+      end
+      x = torch.IntTensor(torch.IntStorage(s))
+      torch.DiskFile(fname,'r'):binary():readInt(x:storage())
    elseif type == 'int64' then
-      x = torch.LongTensor(torch.LongStorage(fname))
+      -- x = torch.LongTensor(torch.LongStorage(fname))
+      s=1
+      for i = 1,#dim do
+         s = s * dim[i]
+      end
+      x = torch.LongTensor(torch.LongStorage(s))
+      torch.DiskFile(fname,'r'):binary():readLong(x:storage())
    else
       print(fname, type)
       assert(false)
