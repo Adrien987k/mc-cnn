@@ -1,4 +1,4 @@
-#! /usr/bin/env luajit
+#!/content/torch/install/bin luajit
 
 require 'torch'
 
