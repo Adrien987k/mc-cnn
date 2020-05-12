@@ -1,4 +1,4 @@
-#!/content/torch/install/bin luajit
+#!/usr/bin/env /content/torch/install/bin/luajit
 
 require 'image'
 require 'nn'
