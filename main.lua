@@ -793,6 +793,12 @@ if opt.a == 'train_tr' or opt.a == 'train_all' or opt.a == 'time' then
    x_batch_tr_ = torch.FloatTensor(x_batch_tr:size())
    y_batch_tr_ = torch.FloatTensor(y_batch_tr:size())
 
+   ------------------------------
+   transfo_params_file = io.open('transfo_params_file.txt', 'w')
+   pairs_folder = 'patch_pairs/'
+   local counter_pairs = 0
+   -------------------------------
+
    time = sys.clock()
    for epoch = 1,14 do
       if opt.a == 'time' then
@@ -862,6 +868,24 @@ if opt.a == 'train_tr' or opt.a == 'train_all' or opt.a == 'time' then
             make_patch(x1, x_batch_tr_[i * 4 - 2], dim3, dim4 - d + d_pos, scale_, phi_, trans_, hshear_, brightness_, contrast_)
             make_patch(x0, x_batch_tr_[i * 4 - 1], dim3, dim4, scale, phi, trans, hshear, brightness, contrast)
             make_patch(x1, x_batch_tr_[i * 4 - 0], dim3, dim4 - d + d_neg, scale_, phi_, trans_, hshear_, brightness_, contrast_)
+            
+            -------------------------------------
+            -- nnz -> location at which gt disparity is defined
+            -- Save pair (x0, x1) dim3 ?, dim4 ?, scale, phi, trans, hshear, brightness, contrast, d
+
+            params_d_str = ('%f %f %f'):format(d, d_pos, d_neg)
+            params_str = ('%f %f %f %f %f %f %f %f'):format(scale[1], scale[2], phi, trans[1], trans[2], hshear, brightness, contrast)
+            params_str_ = ('%f %f %f %f %f %f %f %f'):format(scale_[1], scale_[2], phi_, trans_[1], trans[2], hshear_, brightness_, contrast_)
+            transfo_params_file:write(params_d_str)
+            transfo_params_file:write(params_str)
+            transfo_params_file:write(params_str_)
+
+            for batch_idx = 1,opt.bs do
+               image.save(x_batch_tr_[batch_idx, i * 4 - 3], (pairs_folder .. 'x_%d'):format(counter_pairs))
+               image.save(x_batch_tr_[batch_idx, i * 4 - 2], (pairs_folder .. 'y_%d'):format(counter_pairs))
+               counter_pairs = counter_pairs + 1
+            end
+            ---------------------------------------
 
             y_batch_tr_[i * 2 - 1] = 0
             y_batch_tr_[i * 2] = 1
