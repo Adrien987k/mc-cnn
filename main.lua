@@ -800,7 +800,7 @@ if opt.a == 'train_tr' or opt.a == 'train_all' or opt.a == 'time' then
    -------------------------------
 
    time = sys.clock()
-   for epoch = 1,14 do
+   for epoch = 1,1 do
       if opt.a == 'time' then
          break
       end
@@ -879,6 +879,7 @@ if opt.a == 'train_tr' or opt.a == 'train_all' or opt.a == 'time' then
             transfo_params_file:write(params_d_str)
             transfo_params_file:write(params_str)
             transfo_params_file:write(params_str_)
+            transfo_params_file:write('\n')
 
             -- for batch_idx = 1,opt.bs do
             image.save((pairs_folder .. 'x_%d.png'):format(counter_pairs), x_batch_tr_[i * 4 - 3])
