@@ -881,8 +881,8 @@ if opt.a == 'train_tr' or opt.a == 'train_all' or opt.a == 'time' then
             transfo_params_file:write(params_str_)
 
             for batch_idx = 1,opt.bs do
-               image.save((pairs_folder .. 'x_%d'):format(counter_pairs), x_batch_tr_[batch_idx][i * 4 - 3])
-               image.save((pairs_folder .. 'y_%d'):format(counter_pairs), x_batch_tr_[batch_idx][i * 4 - 2])
+               image.save((pairs_folder .. 'x_%d.png'):format(counter_pairs), x_batch_tr_[batch_idx][i * 4 - 3])
+               image.save((pairs_folder .. 'y_%d.png'):format(counter_pairs), x_batch_tr_[batch_idx][i * 4 - 2])
                counter_pairs = counter_pairs + 1
             end
             ---------------------------------------
