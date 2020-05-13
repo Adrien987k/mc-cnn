@@ -885,6 +885,12 @@ if opt.a == 'train_tr' or opt.a == 'train_all' or opt.a == 'time' then
             image.save((pairs_folder .. 'x_%d.png'):format(counter_pairs), x_batch_tr_[i * 4 - 3])
             image.save((pairs_folder .. 'y_%d.png'):format(counter_pairs), x_batch_tr_[i * 4 - 2])
             counter_pairs = counter_pairs + 1
+
+            if counter_pairs == 1000000 then
+               -- collect 1 000 000 pairs of patchs
+               os.exit()
+               -- local a = 1 / 0
+            end
             -- end
             ---------------------------------------
 
